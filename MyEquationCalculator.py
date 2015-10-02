@@ -1,9 +1,11 @@
-# MyEquationCalculator.py
-# Calculating simple equations inputed by the user. 
-#
-# Andy Zeng; 301221527
-# Sept 30, 2015
+"""
+MyEquationCalculator.py
+Calculating simple equations inputed by the user. 
 
+Andy Zeng; 301221527
+Eric Sund; 301284359
+Sept 30, 2015
+"""
 
 # Be polite and ask for their name.
 givemeyourname = 0
