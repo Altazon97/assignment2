@@ -11,7 +11,7 @@ Sept 30, 2015
 gettingName = True
 while gettingName:
     name = input("We would like to ensure quality customer service through addressing you by name.  What is your name?: ")
-    if len(name) <= 0:
+    if len(name) < 1:
         print("Seriously though, please enter your name! \n")
     else:
         print("\n" + name + "? What a fantastic name.  I should name every one of my children that.  Wow.\n\n")
@@ -55,14 +55,18 @@ Note that there must be a single space between the operator and each operand.\n"
         #Slice the string to get operand2
         operatorright = operatorpos + 1
         operand2 = equation[operatorright:]
-        #Ensure that operators are actually numbers
-        #We use try because we are including floats. string.isdigit() will only return True for integers)
-        try:
-            operand1 = float(operand1)
-            operand2 = float(operand2)
-            retry = 1
-        except ValueError:
-            print("\nYou just entered " + userinput + ".  Please make sure you are actually entering numbers as your operands! \n")
+	#Ensure that operands are not empty
+        if len(operand1) < 1 or len(operand2) < 1:
+            print("\nYou just entered " + userinput + ".  Please make sure that you have entered in both operands! \n")
+        else:
+            #Ensure that operands are actually numbers
+            #We use try because we are including floats. string.isdigit() will only return True for integers)
+            try:
+                operand1 = float(operand1)
+                operand2 = float(operand2)
+                retry = 1
+            except ValueError:
+                print("\nYou just entered " + userinput + ".  Please make sure you are actually entering numbers as your operands! \n")
 
 #Evaluate the equation!
 #Since there is no easy way to convert strings into operators, we will use 4 conditional equations
