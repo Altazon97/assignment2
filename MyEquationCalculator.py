@@ -22,26 +22,25 @@ retry = 0
 while retry == 0:
     #Go for the introductions! 
     userinput = input("""Welcome to the Equation Calculator, %s!
-Accepted format is <operand> <operator> <operand>
+Accepted format is <operand><space><operator><space><operand>
 Note that there must be a single space between the operator and each operand.
 Please type in an equation to solve: """ %(name))
     # Preserve userinput and manipulate variable equation
     equation = userinput
     # Ensure that they are using a valid operator in their input 
     if (equation.count("+") + equation.count("-") + equation.count("*") + equation.count("/") < 1):
-        print("""\nPlease include an operator. It must be either + (addition), - (subtraction), * (multiplication), or / (float division).
-Remember that the equation format must be <operand> <operator> <operand> \n""")
+        print("\nYou just entered " + userinput +  ".  Please include an operator. It must be either + (addition), - (subtraction), * (multiplication), or / (float division).  Remember that the equation format must be <operand><space><operator><space><operand> \n")
     # Ensure that they are using only one operator. 
     elif (equation.count("+") + equation.count("-") + equation.count("*") + equation.count("/") > 1):
-        print("\nThat's too complex for me! Please use only one operator. \n")
+        print("\nYou just entered " + userinput + ".  That's too complex for me! Please use only one operator. \n")
     #Check to ensure there is a space between the operator and the operands.
     elif (equation.count(" + ") + equation.count(" - ") + equation.count(" * ") + equation.count(" / ") < 1):
-        print("""\nPlease make sure that you include a space between the operands and the operator.
-Remember that the equation format must be <operand> <operator> <operand>
+        print("\nYou just entered " + userinput + """.  Please make sure that you include a space between the operands and the operator.
+Remember that the equation format must be <operand><space><operator><space><operand>
 Note that there must be a single space between the operator and each operand.\n""")
     elif (equation.count(" ") > 2):
-        print("""\nYou've got way too many spaces.
-Remember that the equation format must be <operand> <operator> <operand>
+        print("\nYou just entered " + userinput + """.  You've got way too many spaces.
+Remember that the equation format must be <operand><space><operator><space><operand>
 Note that there must be a single space between the operator and each operand.\n""")
     # Good to go! 
     else:
@@ -63,7 +62,7 @@ Note that there must be a single space between the operator and each operand.\n"
             operand2 = float(operand2)
             retry = 1
         except ValueError:
-            print("\nPlease make sure you are actually entering numbers as your operands! \n")
+            print("\nYou just entered " + userinput + ".  Please make sure you are actually entering numbers as your operands! \n")
 
 #Evaluate the equation!
 #Since there is no easy way to convert strings into operators, we will use 4 conditional equations
