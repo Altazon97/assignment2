@@ -8,15 +8,14 @@ Sept 30, 2015
 """
 
 # Be polite and ask for their name.
-givemeyourname = 0
-while givemeyourname == 0:
-    name = input("""We would like to ensure quality customer service through addressing you by name.
-What is your name?: """)
+gettingName = True
+while gettingName:
+    name = input("We would like to ensure quality customer service through addressing you by name.  What is your name?: ")
     if len(name) <= 0:
-        print("Seriously though, please enter your name \n")
+        print("Seriously though, please enter your name! \n")
     else:
-        print("\n", name, "? What a fantastic name. I should name every one of my children that. Wow. \n")
-        givemeyourname = 1
+        print("\n" + name + "? What a fantastic name.  I should name every one of my children that.  Wow.\n\n")
+        gettingName = False
         
 # Get a valid input from your user
 retry = 0
