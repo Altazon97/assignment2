@@ -90,8 +90,5 @@ Here's my answer:
 %s  =  %s
 Have a beautiful day, you wonderful individual.""" %(name, userinput, result))
 
-
-
-
 #In the case of operand operator:
 #Please add an operand to your operator. 
