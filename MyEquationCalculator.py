@@ -4,7 +4,7 @@ Calculating simple equations inputed by the user.
 
 Andy Zeng; 301221527
 Eric Sund; 301284359
-Sept 30, 2015
+September 30 2015
 """
 
 # Be polite and ask for their name.
