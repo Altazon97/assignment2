@@ -1,11 +1,14 @@
 """
 MyEquationCalculator.py
-Calculating simple equations inputed by the user.
+
+This program calculates simple equations inputed by the user in a single input line.
 
 Andy Zeng; 301221527
 Eric Sund; 301284359
+
 September 30 2015
 """
+import re
 
 # Be polite and ask for their name.
 gettingName = True
@@ -14,7 +17,7 @@ while gettingName:
     if len(name) < 1:
         print("Seriously though, please enter your name! \n")
     else:
-        print("\n" + name + "? What a fantastic name.  I should name every one of my children that.  Wow.\n\n")
+        print("\n" + name + "? What a fantastic name.  I should name every one of my children that.  Wow.\n")
         gettingName = False
 
 # Get a valid input from your user
@@ -26,25 +29,46 @@ Accepted format is <operand><space><operator><space><operand>
 Note that there must be a single space between the operator and each operand.
 Also note, you must put a tildle in front of any number you want to be negative.
 Please type in an equation to solve: """ %(name))
+
     # Preserve userinput and manipulate variable equation
     equation = userinput
-    # Ensure that they are using a valid operator in their input
-    if (equation.count("+") + equation.count("-") + equation.count("*") + equation.count("/") < 1):
+
+    #check if nothing was entered
+    if equation == "":
+        print("\nPlease enter an equation!\n")
+
+
+    #check if they entered a word
+    elif len(re.findall("[A-Z]", equation)) >= 1 or len(re.findall("[a-z]", equation)) >= 1:
+        print("\nYou entered " + userinput + ".  I see some letters in there.  Please don't enter any of those; it's not valid if you enter words.\n")
+
+    #check for missing operands
+    elif equation[-1] == "+" or equation[-1] == "-" or equation[-1] == "*" or equation[-1] == "/":
+        print("\nYou just entered " + userinput + ".  Please include both operands.\n")
+
+    #check for missing operator
+    elif (equation.count("+") + equation.count("-") + equation.count("*") + equation.count("/") < 1):
         print("\nYou just entered " + userinput +  """.  Please include an operator. It must be either + (addition), - (subtraction),
-        * (multiplication), or / (float division).  Remember that the equation format must be <operand><space><operator><space><operand> \n""")
+* (multiplication), or / (float division).  Remember that the equation format must be the following...
+<operand><space><operator><space><operand> \n""")
+
     # Ensure that they are using only one operator.
     elif equation.count("+") +  equation.count('-') + equation.count("*") + equation.count("/") > 1:
         print("\nYou just entered " + userinput + ".  That's too complex for me!  Please use only one operator. \n")
+
     #Check to ensure there is a space between the operator and the operands.
     elif (equation.count(" + ") + equation.count(" - ") + equation.count(" * ") + equation.count(" / ") < 1):
         print("\nYou just entered " + userinput + """.  Please make sure that you include a single space before and after the operator.
-        Remember that the equation format must be <operand><space><operator><space><operand>
-        Note that there must be a single space between the operator and each operand.\n""")
+Remember that the equation format must be <operand><space><operator><space><operand>
+Note that there must be a single space between the operator and each operand.\n""")
+
+    #check for more than two spaces
     elif (equation.count(" ") > 2):
         print("\nYou just entered " + userinput + """.  You've got way too many spaces.
         Remember that the equation format must be <operand><space><operator><space><operand>
         Note that there must be a single space between the operator and each operand.\n""")
-    # Good to go!
+
+    #If all else is alright, then good to go!
     else:
         # Replace all spaces from the string
         equation = equation.replace(" ","")
@@ -52,7 +76,7 @@ Please type in an equation to solve: """ %(name))
         operatorpos = equation.find("+") + equation.find("-") + equation.find("*") + equation.find("/") + 3
         #Slice the string to get operand1
         operand1 = equation[:operatorpos] #slice is non-inclusive
-        #deal with the possible negative
+        #if required, rewrite the negative operand before evaluating the expression
         if equation[:operatorpos - 1] == "~":
             operand1 = operand1.replace("~", "-")
         #Slice the string to get the operator
@@ -60,12 +84,13 @@ Please type in an equation to solve: """ %(name))
         #Slice the string to get operand2
         operatorright = operatorpos + 1
         operand2 = equation[operatorright:]
-        #deal with the possible second negative
+        #if required, rewrite the second negative operand before evaluating the expression
         if equation[operatorright] == "~":
             operand2 = operand2.replace("~", "-")
+
 	    #Ensure that operands are not empty
         if len(operand1) < 1 or len(operand2) < 1:
-            print("\nYou just entered " + userinput + ".  Please make sure that you have entered in both operands! \n")
+            print("\nYou just entered " + userinput + ".  Please include both operands. \n")
         else:
             #Ensure that operands are actually numbers
             #We use try because we are including floats. string.isdigit() will only return True for integers)
@@ -87,8 +112,10 @@ elif operator == "*":
 elif operator == "/":
     result = operand1 / operand2
 else:
-    print("If you are seeing this message, we've got a pretty big issue and we'll need to debug some more")
-    exit()
+    print("If you are seeing this message, we've got a pretty big issue and we'll need to debug some more...")
+
+#Clean up results before outputting them on the screen
+userinput = userinput.replace("~", "-")
 
 #Return the result and wish them a beautiful day
 print("""
