@@ -52,21 +52,21 @@ Please type in an equation to solve: """ %(name))
         operatorpos = equation.find("+") + equation.find("-") + equation.find("*") + equation.find("/") + 3
         #Slice the string to get operand1
         operand1 = equation[:operatorpos] #slice is non-inclusive
-        #deal with the possible negative
-        if equation[:operatorpos - 1] == "~":
-            operand1 = operand1.replace("~", "-")
         #Slice the string to get the operator
         operator = equation[operatorpos]
         #Slice the string to get operand2
         operatorright = operatorpos + 1
         operand2 = equation[operatorright:]
-        #deal with the possible second negative
-        if equation[operatorright] == "~":
-            operand2 = operand2.replace("~", "-")
-	    #Ensure that operands are not empty
+	#Ensure that operands are not empty
         if len(operand1) < 1 or len(operand2) < 1:
             print("\nYou just entered " + userinput + ".  Please make sure that you have entered in both operands! \n")
         else:
+            #deal with the possible negative
+            if equation[:operatorpos - 1] == "~":
+                operand1 = operand1.replace("~", "-")
+            #deal with the possible second negative
+            if equation[operatorright] == "~":
+                operand2 = operand2.replace("~", "-")
             #Ensure that operands are actually numbers
             #We use try because we are including floats. string.isdigit() will only return True for integers)
             try:
@@ -97,6 +97,3 @@ I've worked very hard and solved your equation!
 Here's my answer:
 %s  =  %s
 Have a beautiful day, you wonderful individual.""" %(name, userinput, result))
-
-#In the case of operand operator:
-#Please add an operand to your operator.
