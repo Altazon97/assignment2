@@ -27,6 +27,7 @@ Accepted format is <operand><space><operator><space><operand>
 Accepted operators include: + , - , * , and / 
 Please type in an equation to solve: """ %(name))
 
+    #keep two variables (userinput and equation) so one can be printed back to the user while the other is evaluated
     equation = userinput.strip()
     space = equation.find(" ")
     space_count = equation.count(" ")
