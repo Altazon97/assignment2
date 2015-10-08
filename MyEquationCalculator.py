@@ -22,19 +22,20 @@ while gettingName:
 retry = 0
 while retry == 0:
     #Go for the introductions!
-    equation = input("""Welcome to the Equation Calculator, %s!
+    userinput = input("""Welcome to the Equation Calculator, %s!
 Accepted format is <operand><space><operator><space><operand>
-Note that there must be a single space between the operator and each operand.
-Also note, you must put a tildle in front of any number you want to be negative.
+Accepted operators include: + , - , * , and / 
 Please type in an equation to solve: """ %(name))
 
-    equation = equation.strip()
+    equation = userinput.strip()
     space = equation.find(" ")
+    space_count = equation.count(" ")
+    
 
     #if there is 1 operand
     try:
         equation = float(equation)
-        print("\nYou have entered " + str(equation) + ".  Please include two operands and an operator.\n")
+        print("\nYou have entered " + userinput + ".  Please include two operands and an operator.\n")
 
     #2 operands and no operator, or 1 operator and 1 operand
     except ValueError:
@@ -43,27 +44,39 @@ Please type in an equation to solve: """ %(name))
             print("\nYou entered nothing.  Please enter something.\n")
         #if there are letters
         elif len(re.findall("[A-Z]", equation)) >= 1 or len(re.findall("[a-z]", equation)) >= 1:
-            print("\nYou entered " + equation + ".  I see some letters in there.  You probably entered a word.  Please don't do that, it's invalid.\n")
+            print("\nYou entered " + userinput + ".  I see some letters in there.  You probably entered a word.  Please don't do that, it's invalid.\n")
         #if there is 1 operator
         elif (len(equation) == 1) and ("-" in equation or "+" in equation or "*" in equation or "/" in equation):
-            print("\nYou entered " + equation + ".  Please enter two operands.\n")
+            print("\nYou entered " + userinput + ".  Please enter two operands.\n")
         #if there is 1 operator and 1 operand
         elif equation[space+1::] == "+" or equation[space+1::] == "-" or equation[space+1::] == "*" or equation[space+1::] == "/":
-            print("\nYou entered " + equation + ".  Please enter one more operand.\n")
+            print("\nYou entered " + userinput + ".  Please enter one more operand.\n")
 
         #if there are 2 operands and no operator
         elif equation[space+1].isdigit(): #if there's no negative in front of the second operand
             try:
                 float(equation[space+1::])
-                print("\nYou entered " + equation + ".  Please enter an operator in between the operands.\n")
+                print("\nYou entered " + userinput + ".  Please enter an operator in between the operands.\n")
             except ValueError:
-                print("")
+                #ensure there is a space between the operator and the operands
+                if space_count < 2:
+                    print("\nYou entered " + userinput + ".  Please make sure there is a single space between the operator and each operand.\n")
+                else:
+                    print("")
         elif equation[space+1] == "-" and equation[space+2].isdigit(): #if there is a negative in front of the second operand
             try:
                 float(equation[space+2::])
-                print("\nYou entered " + equation + ".  Please enter an operator in between the operands.\n")
+                print("\nYou entered " + userinput + ".  Please enter an operator in between the operands.\n")
             except ValueError:
-                print("")
+                #ensure there is a space between the operator and the operands
+                if space_count < 2:
+                    print("\nYou entered " + userinput + ".  Please make sure there is a single space between the operator and each operand.\n")
+                else:
+                    print("")
+
+        #in case of multiple spaces
+        elif space_count > 2:
+            print("\nYou entered " + userinput + ".  Please make sure there is a single space between the operator and each operand.\n")
 
         #good to go!
         else:
@@ -89,4 +102,8 @@ Alright %s,
 I've worked very hard and solved your equation!
 Here's my answer:
 %s  =  %s
-\nHave a beautiful day, you wonderful individual.\n""" %(name, equation, result))
+\nHave a beautiful day, you wonderful individual.\n""" %(name, userinput, result))
+
+            #exit loop
+            retry = 1
+
