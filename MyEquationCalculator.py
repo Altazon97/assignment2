@@ -51,7 +51,7 @@ Please type in an equation to solve: """ %(name))
         elif equation[space+1::] == "+" or equation[space+1::] == "-" or equation[space+1::] == "*" or equation[space+1::] == "/":
             print("\nYou entered " + equation + ".  Please enter one more operand.\n")
 
-        #if there are 2 operators and no operand
+        #if there are 2 operands and no operator
         elif equation[space+1].isdigit(): #if there's no negative in front of the second operand
             try:
                 float(equation[space+1::])
